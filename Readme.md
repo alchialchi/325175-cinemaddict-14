@@ -1,7 +1,7 @@
 # Проект «Киноман»
 
 * Студент: [Olga Lukina](https://up.htmlacademy.ru/ecmascript/14/user/325175).
-* Наставник: `Неизвестно`.
+* Наставник: [Екатерина Малецкая](https://htmlacademy.ru/profile/id902197).
 
 ---
 
