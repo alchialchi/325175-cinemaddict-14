@@ -36,24 +36,24 @@ insertElement(mainElement, createMenuTemlpate(), 'beforeend');
 insertElement(mainElement, createFilterTemplate(), 'beforeend');
 insertElement(mainElement, createStatsTemplate(), 'beforeend');
 insertElement(mainElement, createFilmsListTemplate(), 'beforeend');
-insertElement(mainElement, createFilmsListExtraTemplate(), 'beforeend');
 
 const allFilms = mainElement.querySelector('.films');
 
 insertElement(allFilms, createFilmsListTemplate(), 'beforeend');
 
-const allFilmsList = allFilms.querySelector('.film-list');
-const allFilmsListContainer = allFilmsList.querySelector('.film-list__container');
+const allFilmsList = allFilms.querySelector('.films-list');
+const allFilmsListContainer = allFilmsList.querySelector('.films-list__container');
 
 insertAllFilms(allFilmsListContainer, createFilmCardTemplate(), 'beforeend', MAX_CARD_COUNT);
 insertElement(allFilmsList, createShowMoreTemplate(), 'beforeend');
+
 insertElement(allFilms, createFilmsListExtraTemplate(), 'beforeend');
 
 const topFilms = allFilms.querySelector('.films-list--top');
 const topFilmsContainer = topFilms.querySelector('.films-list__container');
 
 insertAllFilms(topFilmsContainer, createFilmCardTemplate(), 'beforeend', MIN_CARD_COUNT);
-insertElement(allFilms, createMostCommentedFilmsTemplate, 'beforeend');
+insertElement(allFilms, createMostCommentedFilmsTemplate(), 'beforeend');
 
 const mostCommentedFilms = allFilms.querySelector('.films-list--popular');
 const mostCommentedFilmsContainer = mostCommentedFilms.querySelector('.films-list__container');
