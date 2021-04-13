@@ -47,7 +47,7 @@ export const shuffleArray = (array) => {
 
 export const getRandomItem = (array) => array[getRandomInteger(0, array.length - 1)];
 
-export const getRandomItems = (items, min = 0, max = items.length) => {
+export const getRandomItems = (items, min = 1, max = items.length) => {
   const randomItems = [];
 
   while (randomItems.length < min) {
@@ -61,9 +61,7 @@ export const getRandomItems = (items, min = 0, max = items.length) => {
   return shuffleArray(randomItems);
 };
 
-export const generateRandomText = (minSentences = 1, maxSentences = RANDOM_SENTENCES.length) => {
-  getRandomItems(RANDOM_SENTENCES, minSentences, maxSentences).join(' ');
-};
+export const generateRandomText = (minSentences = 1, maxSentences = RANDOM_SENTENCES.length) => getRandomItems(RANDOM_SENTENCES, minSentences, maxSentences).join(' ');
 
 export const getRandomDateFromPast = (maxDaysAgo) => dayjs()
   .subtract(getRandomInteger(0, maxDaysAgo - 1), 'day')
