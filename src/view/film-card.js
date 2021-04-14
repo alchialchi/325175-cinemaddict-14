@@ -1,12 +1,14 @@
 import dayjs from 'dayjs';
 import {
-  getFormattedDuration
+  getFormattedDuration,
+  addPluralEnding
 } from '../util.js';
 
 const SHORT_DESCRIPTION_LENGTH = 140;
 
 export const createFilmCardTemplate = (film) => {
   const {
+    comments: commentsIds,
     info: {
       poster,
       title,
@@ -38,7 +40,7 @@ export const createFilmCardTemplate = (film) => {
   </p>
   <img src="${poster}" alt="" class="film-card__poster">
   <p class="film-card__description">${getShortDescription(description)}</p>
-  <a class="film-card__comments">5 comments</a>
+  <a class="film-card__comments">${commentsIds.length} comment${addPluralEnding(commentsIds)}</a>
   <div class="film-card__controls">
     <button class="film-card__controls-item button film-card__controls-item--add-to-watchlist ${getButtonCurrentStateClass(isOnWatchlist)}" type="button">Add to watchlist</button>
     <button class="film-card__controls-item button film-card__controls-item--mark-as-watched ${getButtonCurrentStateClass(isWatched)}" type="button">Mark as watched</button>

@@ -76,3 +76,14 @@ export const getFormattedDuration = (durationInMinutes) => {
 };
 
 export const addPluralEnding = (array) => array.length !== 1 ? 's' : '';
+
+export const createUniqueIdGenerator = () => {
+  const usedIds = [];
+
+  return () => {
+    const currentId = usedIds.length + 1;
+    usedIds.push(currentId);
+
+    return currentId;
+  };
+};

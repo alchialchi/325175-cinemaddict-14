@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { nanoid } from 'nanoid';
+
 import {
   getRandomItem,
   getRandomFloating,
@@ -7,7 +7,8 @@ import {
   getRandomDateFromPast,
   getRandomInteger,
   generateRandomText,
-  DAYS_IN_ONE_YEAR
+  DAYS_IN_ONE_YEAR,
+  createUniqueIdGenerator
 } from '../util.js';
 
 const MAX_COMMENTS_PER_FILM = 15;
@@ -106,21 +107,23 @@ const GENRES = [
   'Thriller',
 ];
 
-const AGE_RATINGS = ['G', 'PG', 'PG-13', 'R', 'NC-17'];
+const AGE_RATINGS = [0, 6, 12, 16, 18, 21];
+
+const MAX_COMMENT_ID = 50;
 
 const getRandomRating = () => getRandomFloating(MIN_RATING, MAX_RATING, 1);
 
-const getRandomCommentsList = () => {
-  new Array(getRandomInteger(0, MAX_COMMENTS_PER_FILM)).fill().map(() => getRandomInteger(1, 50));
-};
+const getRandomListOfComments = () => new Array(getRandomInteger(1, MAX_COMMENTS_PER_FILM)).fill().map(() => getRandomInteger(1, MAX_COMMENT_ID));
 
 const getRandomReleaseDate = () => dayjs().subtract(getRandomInteger(0, 50 - 1), 'year').subtract(getRandomInteger(0, DAYS_IN_ONE_YEAR), 'day').toISOString();
 
 const getRandomBoolean = () => Boolean(Math.random() < 0.5);
 
+const getFilmId = createUniqueIdGenerator();
+
 export const createFilm = () => {
   return {
-    id: nanoid(),
+    id: getFilmId(),
     info: {
       poster: `${POSTERS_PATH}/${getRandomItem(POSTERS_FILES)}`,
       title: getRandomItem(TITLES),
@@ -136,7 +139,7 @@ export const createFilm = () => {
       description: generateRandomText(MIN_SENTENCES_IN_DESCRIPTION, MAX_SENTENCES_IN_DESCRIPTION),
       ageRating: getRandomItem(AGE_RATINGS),
     },
-    comments: getRandomCommentsList(),
+    comments: getRandomListOfComments(),
     userMeta: {
       isWatched: getRandomBoolean(),
       isFavorite: getRandomBoolean(),
