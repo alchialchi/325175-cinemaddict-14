@@ -1,4 +1,5 @@
-import { createFilm } from './data/film.js';
+import { createFilm, getUserRank, getWatchedFilms } from './data';
+
 import {
   createMenuTemlpate,
   createPopupTemplate,
@@ -20,6 +21,7 @@ const FILMS_COUNT = 20;
 const FILMS_PER_STEP = 5;
 
 const films = new Array(FILMS_COUNT).fill().map(() => createFilm());
+const userRank = getUserRank(getWatchedFilms(films).length);
 
 const insertElement = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
@@ -37,7 +39,7 @@ const mainElement = document.querySelector('.main');
 const footerElement = document.querySelector('.footer');
 
 insertElement(bodyElement, createPopupTemplate(), 'beforeend');
-insertElement(headerElement, createUserRatingTemplate(), 'beforeend');
+insertElement(headerElement, createUserRatingTemplate(userRank), 'beforeend');
 insertElement(mainElement, createMenuTemlpate(), 'beforeend');
 insertElement(mainElement, createFilterTemplate(), 'beforeend');
 insertElement(mainElement, createStatsTemplate(), 'beforeend');
