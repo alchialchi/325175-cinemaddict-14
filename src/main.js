@@ -38,7 +38,7 @@ const headerElement = document.querySelector('.header');
 const mainElement = document.querySelector('.main');
 const footerElement = document.querySelector('.footer');
 
-insertElement(bodyElement, createPopupTemplate(), 'beforeend');
+insertElement(bodyElement, createPopupTemplate(films[0]), 'beforeend');
 insertElement(headerElement, createUserRatingTemplate(userRank), 'beforeend');
 insertElement(mainElement, createMenuTemlpate(), 'beforeend');
 insertElement(mainElement, createFilterTemplate(), 'beforeend');

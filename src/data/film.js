@@ -127,7 +127,7 @@ export const createFilm = () => {
       originalTitle: getRandomItem(TITLES),
       rating: getRandomRating(),
       director: getRandomItem(DIRECTORS_NAMES),
-      screenwriters: getRandomItem(SCREENWRITERS_NAMES),
+      screenwriters: getRandomItems(SCREENWRITERS_NAMES),
       actors: getRandomItems(ACTORS_NAMES),
       releaseDate: getRandomReleaseDate(),
       duration: getRandomInteger(MIN_MOVIE_DURATION_IN_MINUTES, MAX_MOVIE_DURATION_IN_MINUTES),
