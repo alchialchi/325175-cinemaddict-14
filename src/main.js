@@ -1,4 +1,14 @@
-import { EMOJIS, generateComment, createFilm, getUserRank, getWatchedFilms, getFilmsSortedByComments, getFilmsSortedByRating } from './data';
+import {
+  EMOJIS,
+  generateComment,
+  createFilm,
+  getUserRank,
+  getWatchedFilms,
+  getFilmsSortedByComments,
+  getFilmsSortedByRating,
+  generateFilters,
+  generateSortMethods
+} from './data';
 
 import {
   createMenuTemlpate,
@@ -7,7 +17,7 @@ import {
   createShowMoreTemplate,
   createFilmsListExtraTemplate,
   createFilmsListTemplate,
-  createFilterTemplate,
+  createSortFilterTemplate,
   createFooterTemplate,
   createFilmCardTemplate,
   createStatsTemplate,
@@ -23,6 +33,7 @@ const EXTRA_FILMS_COUNT = 2;
 const films = new Array(FILMS_COUNT).fill().map(() => createFilm());
 const comments = new Array(COMMENTS_COUNT).fill().map(() => generateComment());
 const userRank = getUserRank(getWatchedFilms(films).length);
+const filters = generateFilters(films);
 
 const headerElement = document.querySelector('.header');
 const mainElement = document.querySelector('.main');
@@ -34,8 +45,8 @@ const renderNode = (container, template, position = 'beforeend') => {
 
 renderNode(headerElement, createUserRatingTemplate(userRank));
 
-renderNode(mainElement, createMenuTemlpate());
-renderNode(mainElement, createFilterTemplate());
+renderNode(mainElement, createMenuTemlpate(filters));
+renderNode(mainElement, createSortFilterTemplate(generateSortMethods(films)));
 renderNode(mainElement, createStatsTemplate());
 renderNode(mainElement, createFilmsListTemplate());
 
