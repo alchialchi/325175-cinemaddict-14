@@ -86,6 +86,6 @@ for (let i = 0; i < Math.min(EXTRA_FILMS_COUNT); i++) {
   renderNode(mostCommentedFilmsContainer, createFilmCardTemplate(getFilmsSortedByComments(films)[i]));
 }
 
-renderNode(footerElement, createFooterTemplate());
+renderNode(footerElement, createFooterTemplate(films));
 
 renderNode(document.body, createPopupTemplate(films[0], comments, EMOJIS));
