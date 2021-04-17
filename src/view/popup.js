@@ -4,6 +4,44 @@ import { getFormattedDuration, addPluralEnding } from '../util.js';
 
 dayjs.extend(relativeTime);
 
+const createEmojiTemplate = (emojiName) => {
+  return `<input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-${emojiName}" value="${emojiName}">
+    <label class="film-details__emoji-label" for="emoji-${emojiName}">
+      <img src="./images/emoji/${emojiName}.png" width="30" height="30" alt="emoji">
+    </label>`;
+};
+
+const createGenreTemplate = (genre) => {
+  return `<span class="film-details__genre">${genre}</span>`;
+};
+
+const createCommentTemplate = (id, comments) => {
+  const currentComment = comments.find((comment) => comment.id === id);
+
+  const {
+    text,
+    emoji,
+    author,
+    date,
+  } = currentComment;
+
+  const humanizedCommentDate = dayjs().to(date);
+
+  return `<li class="film-details__comment">
+      <span class="film-details__comment-emoji">
+        <img src="./images/emoji/${emoji}.png" width="55" height="55" alt="emoji-${emoji}">
+      </span>
+      <div>
+        <p class="film-details__comment-text">${text}</p>
+        <p class="film-details__comment-info">
+          <span class="film-details__comment-author">${author}</span>
+          <span class="film-details__comment-day">${humanizedCommentDate}</span>
+          <button class="film-details__comment-delete">Delete</button>
+        </p>
+      </div>
+    </li>`;
+};
+
 export const createPopupTemplate = (film, comments, emojis) => {
   const {
     comments: commentsIds,
@@ -31,44 +69,6 @@ export const createPopupTemplate = (film, comments, emojis) => {
 
   const humanizedReleaseDate = dayjs(releaseDate).format('D MMMM YYYY');
   const getCurrentStateButton = (active) => active ? 'checked' : '';
-
-  const createGenreTemplate = (genre) => {
-    return `<span class="film-details__genre">${genre}</span>`;
-  };
-
-  const createCommentTemplate = (id) => {
-    const currentComment = comments.find((comment) => comment.id === id);
-
-    const {
-      text,
-      emoji,
-      author,
-      date,
-    } = currentComment;
-
-    const humanizedCommentDate = dayjs().to(date);
-
-    return `<li class="film-details__comment">
-        <span class="film-details__comment-emoji">
-          <img src="./images/emoji/${emoji}.png" width="55" height="55" alt="emoji-${emoji}">
-        </span>
-        <div>
-          <p class="film-details__comment-text">${text}</p>
-          <p class="film-details__comment-info">
-            <span class="film-details__comment-author">${author}</span>
-            <span class="film-details__comment-day">${humanizedCommentDate}</span>
-            <button class="film-details__comment-delete">Delete</button>
-          </p>
-        </div>
-      </li>`;
-  };
-
-  const createEmojiTemplate = (emojiName) => {
-    return `<input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-${emojiName}" value="${emojiName}">
-      <label class="film-details__emoji-label" for="emoji-${emojiName}">
-        <img src="./images/emoji/${emojiName}.png" width="30" height="30" alt="emoji">
-      </label>`;
-  };
 
   return `
   <section class="film-details">
@@ -150,7 +150,7 @@ export const createPopupTemplate = (film, comments, emojis) => {
         <h3 class="film-details__comments-title">Comment${addPluralEnding(commentsIds)} <span class="film-details__comments-count">${commentsIds.length}</span></h3>
 
         <ul class="film-details__comments-list">
-          ${commentsIds.map((commentId) => createCommentTemplate(commentId)).join(' ')}
+          ${commentsIds.map((commentId) => createCommentTemplate(commentId, comments)).join(' ')}
         </ul>
 
         <div class="film-details__new-comment">
