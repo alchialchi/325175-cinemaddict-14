@@ -6,6 +6,6 @@ export * from './show-more';
 export * from './popup';
 export * from './user-rating';
 export * from './footer';
-export * from './filter';
+export * from './sort';
 export * from './stats';
 export * from './film-list-most-commented';
