@@ -169,3 +169,30 @@ export const createPopupTemplate = (film, comments, emojis) => {
   </form>
 </section>`;
 };
+
+// Это не работает
+
+// export default class Popup {
+//   constructor(film, comments, emojis) {
+//     this._film = film;
+//     this._comments = comments;
+//     this._emojis = emojis;
+//     this._element = null;
+//   }
+
+//   getTemplate() {
+//     return createPopupTemplate(this._film, this._comments, this._emojis);
+//   }
+
+//   getElement() {
+//     if (!this._element) {
+//       this._element = createElement(this.getTemplate());
+//     }
+
+//     return this._element;
+//   }
+
+//   removeElement() {
+//     this._element = null;
+//   }
+// }
