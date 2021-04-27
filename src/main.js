@@ -12,7 +12,6 @@ import {
 
 import {
   createMenuTemplate,
-  createPopupTemplate,
   createShowMoreTemplate,
   createSortFilterTemplate,
   createFilmCardTemplate
@@ -25,7 +24,7 @@ import MostCommentedFilmsView from './view/film-list-most-commented.js';
 import TopRatedFilmsView from './view/films-list-extra.js';
 import FilmsView from './view/films-list.js';
 import FilmCardView from './view/film-card.js';
-// import PopupView from './view/popup.js';
+import PopupView from './view/popup.js';
 
 import { renderElement, RenderPosition } from './util.js';
 
@@ -42,6 +41,7 @@ const userRank = getUserRank(getWatchedFilms(films).length);
 const filters = generateFilters(films);
 
 const headerElement = document.querySelector('.header');
+const bodyElement = document.querySelector('body');
 const mainElement = document.querySelector('.main');
 const footerElement = document.querySelector('.footer');
 
@@ -106,4 +106,7 @@ for (let i = 0; i < Math.min(EXTRA_FILMS_COUNT); i++) {
 
 renderElement(footerElement, new FooterView(films).getElement(), RenderPosition.BEFOREEND);
 
-renderNode(document.body, createPopupTemplate(films[0], comments, EMOJIS));
+const popup = new PopupView(films[0], comments, EMOJIS);
+
+renderElement(bodyElement, popup.getElement(), RenderPosition.BEFOREEND);
+
