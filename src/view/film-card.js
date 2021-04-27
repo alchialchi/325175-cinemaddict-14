@@ -7,7 +7,7 @@ import {
 
 const SHORT_DESCRIPTION_LENGTH = 140;
 
-export const createFilmCardTemplate = (film) => {
+const createFilmCardTemplate = (film) => {
   const {
     comments: commentsIds,
     info: {

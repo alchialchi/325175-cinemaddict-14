@@ -1,7 +1,7 @@
 
-import { convertPlainTextToSnakeCase } from '../util.js';
+import { convertPlainTextToSnakeCase, createElement } from '../util.js';
 
-export const createMenuTemplate = (filters) => {
+const createMenuTemplate = (filters) => {
   const isDefaultFilter = (filterName) => filterName.toLowerCase() === 'all';
 
   const getActiveStateClass = (active) => active ? 'main-navigation__item--active' : '';
@@ -22,25 +22,25 @@ export const createMenuTemplate = (filters) => {
 `;
 };
 
-// export default class SiteMenu {
-//   constructor(filters) {
-//     this._filters = filters;
-//     this._element = null;
-//   }
+export default class SiteMenu {
+  constructor(filters) {
+    this._filters = filters;
+    this._element = null;
+  }
 
-//   getTemplate() {
-//     return createMenuTemlpate(this._filters);
-//   }
+  getTemplate() {
+    return createMenuTemplate(this._filters);
+  }
 
-//   getElement() {
-//     if (!this._element) {
-//       this._element = createElement(this.getTemplate());
-//     }
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
 
-//     return this._element;
-//   }
+    return this._element;
+  }
 
-//   removeElement() {
-//     this._element = null;
-//   }
-// }
+  removeElement() {
+    this._element = null;
+  }
+}
