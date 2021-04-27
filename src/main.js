@@ -50,8 +50,51 @@ const allFilms = mainElement.querySelector('.films');
 const filmsListNode = mainElement.querySelector('.films-list');
 const filmsListContainerNode = filmsListNode.querySelector('.films-list__container');
 
+const renderFilm = (container, film) => {
+  const filmComponent = new FilmCardView(film);
+
+  renderElement(container, filmComponent.getElement(), RenderPosition.BEFOREEND);
+
+  const filmPoster = filmComponent.getElement().querySelector('.film-card__poster');
+  const filmComments = filmComponent.getElement().querySelector('.film-card__comments');
+  const filmTitle = filmComponent.getElement().querySelector('.film-card__title');
+
+  const onFilmCardClick = (evt) => {
+    bodyElement.classList.add('hide-overflow');
+
+    const filmId = evt.target.offsetParent.getAttribute('id');
+    const filmPopup = films.filter((film) => film.id === Number(!filmId));
+
+    const popup = new PopupView(filmPopup[0], comments, EMOJIS);
+    renderElement(bodyElement, popup.getElement(), RenderPosition.BEFOREEND);
+
+    const popupCloseButton = popup.getElement().querySelector('.film-details__close-btn');
+
+    const onEscKeyDown = (evt) => {
+      if (evt.key === 'Escape' || evt.key === 'Esc') {
+        evt.preventDefault();
+        bodyElement.removeChild(popup.getElement());
+        bodyElement.classList.remove('hide-overflow');
+        document.removeEventListener('keydown', onEscKeyDown);
+      }
+    };
+
+    const onPopupClose = () => {
+      bodyElement.removeChild(popup.getElement());
+      bodyElement.classList.remove('hide-overflow');
+    };
+
+    popupCloseButton.addEventListener('click', onPopupClose);
+    document.addEventListener('keydown', onEscKeyDown);
+  };
+
+  filmPoster.addEventListener('click', onFilmCardClick);
+  filmComments.addEventListener('click', onFilmCardClick);
+  filmTitle.addEventListener('click', onFilmCardClick);
+};
+
 for (let i = 0; i < Math.min(films.length, FILMS_PER_STEP); i++) {
-  renderElement(filmsListContainerNode, new FilmCardView(films[i]).getElement(), RenderPosition.BEFOREEND);
+  renderFilm(filmsListContainerNode, films[i]);
 }
 
 if (films.length > FILMS_PER_STEP) {
@@ -94,7 +137,3 @@ for (let i = 0; i < Math.min(EXTRA_FILMS_COUNT); i++) {
 }
 
 renderElement(footerElement, new FooterView(films).getElement(), RenderPosition.BEFOREEND);
-
-const popup = new PopupView(films[0], comments, EMOJIS);
-
-renderElement(bodyElement, popup.getElement(), RenderPosition.BEFOREEND);
