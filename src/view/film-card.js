@@ -1,12 +1,13 @@
 import dayjs from 'dayjs';
 import {
   getFormattedDuration,
-  addPluralEnding
+  addPluralEnding,
+  createElement
 } from '../util.js';
 
 const SHORT_DESCRIPTION_LENGTH = 140;
 
-export const createFilmCardTemplate = (film) => {
+const createFilmCardTemplate = (film) => {
   const {
     comments: commentsIds,
     info: {
@@ -49,3 +50,26 @@ export const createFilmCardTemplate = (film) => {
 </article>
 `;
 };
+
+export default class FilmCard {
+  constructor(film) {
+    this._film = film;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createFilmCardTemplate(this._film);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
