@@ -25,7 +25,7 @@ import NoFilmMessageView from './view/no-film-message';
 
 import { renderElement, RenderPosition } from './util.js';
 
-const FILMS_COUNT = 0;
+const FILMS_COUNT = 20;
 const FILMS_PER_STEP = 5;
 
 const COMMENTS_COUNT = 50;
@@ -105,13 +105,11 @@ for (let i = 0; i < Math.min(films.length, FILMS_PER_STEP); i++) {
 if (films.length > FILMS_PER_STEP) {
   let shownFilmsCount = FILMS_PER_STEP;
 
-  renderElement(filmsListNode, new ShowMoreButtonView().getElement(), RenderPosition.BEFOREEND);
+  const showMoreButton = new ShowMoreButtonView();
 
-  const showMoreButton = filmsListNode.querySelector('.films-list__show-more');
+  renderElement(filmsListNode, showMoreButton.getElement(), RenderPosition.BEFOREEND);
 
-  const onShowMoreButtonClick = (evt) => {
-    evt.preventDefault();
-
+  showMoreButton.setClickHandler(() => {
     films
       .slice(shownFilmsCount, shownFilmsCount + FILMS_PER_STEP)
       .forEach((film) => renderFilm(filmsListContainerNode, film));
@@ -119,11 +117,9 @@ if (films.length > FILMS_PER_STEP) {
     shownFilmsCount += FILMS_PER_STEP;
 
     if (shownFilmsCount >= films.length) {
-      showMoreButton.remove();
+      showMoreButton.getElement().remove();
     }
-  };
-
-  showMoreButton.addEventListener('click', onShowMoreButtonClick);
+  });
 }
 
 renderElement(allFilms, new TopRatedFilmsView().getElement(), RenderPosition.BEFOREEND);
