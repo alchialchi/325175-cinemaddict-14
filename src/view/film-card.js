@@ -9,6 +9,10 @@ import AbstractView from './abstract.js';
 const SHORT_DESCRIPTION_LENGTH = 140;
 
 const createFilmCardTemplate = (film) => {
+  if (!film) {
+    return;
+  }
+
   const {
     comments: commentsIds,
     info: {
