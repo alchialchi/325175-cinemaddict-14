@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { getFormattedDuration, addPluralEnding } from '../util.js';
+import { getFormattedDuration, addPluralEnding } from '../utils/common';
 import AbstractView from './abstract.js';
 
 dayjs.extend(relativeTime);

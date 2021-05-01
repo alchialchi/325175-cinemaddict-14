@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import {
   getFormattedDuration,
   addPluralEnding
-} from '../util.js';
+} from '../utils/common';
 
 import AbstractView from './abstract.js';
 

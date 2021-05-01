@@ -1,4 +1,4 @@
-import { addPluralEnding } from '../util.js';
+import { addPluralEnding } from '../utils/common';
 import AbstractView from './abstract.js';
 
 const createFooterTemplate = (films) => {

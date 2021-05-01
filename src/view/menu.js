@@ -1,5 +1,5 @@
 
-import { convertPlainTextToSnakeCase } from '../util.js';
+import { convertPlainTextToSnakeCase } from '../utils/common';
 import AbstractView from './abstract.js';
 
 const createMenuTemplate = (filters) => {
