@@ -1,4 +1,5 @@
-import { addPluralEnding, createElement } from '../util.js';
+import { addPluralEnding } from '../util.js';
+import AbstractView from './abstract.js';
 
 const createFooterTemplate = (films) => {
   return `<section class="footer__statistics">
@@ -6,25 +7,13 @@ const createFooterTemplate = (films) => {
   </section>`;
 };
 
-export default class Footer {
+export default class Footer extends AbstractView {
   constructor(films) {
+    super();
     this._films = films;
-    this._element = null;
   }
 
   getTemplate() {
     return createFooterTemplate(this._films);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

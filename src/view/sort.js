@@ -1,4 +1,4 @@
-import { createElement } from '../util.js';
+import AbstractView from './abstract.js';
 
 const createSortFilterTemplate = (sortMethods) => {
   const getActiveStateClass = (active) => active ? 'sort__button--active' : '';
@@ -12,25 +12,13 @@ const createSortFilterTemplate = (sortMethods) => {
   </ul>`;
 };
 
-export default class SortFilter {
+export default class SortFilter extends AbstractView {
   constructor(sortMethods) {
+    super();
     this._sortMethods = sortMethods;
-    this._element = null;
   }
 
   getTemplate() {
     return createSortFilterTemplate(this._sortMethods);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
