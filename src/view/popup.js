@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { getFormattedDuration, addPluralEnding, createElement } from '../util.js';
+import { getFormattedDuration, addPluralEnding } from '../utils/common';
+import AbstractView from './abstract.js';
 
 dayjs.extend(relativeTime);
 
@@ -170,27 +171,15 @@ const createPopupTemplate = (film, comments, emojis) => {
 </section>`;
 };
 
-export default class Popup {
+export default class Popup extends AbstractView {
   constructor(film, comments, emojis) {
+    super();
     this._film = film;
     this._comments = comments;
     this._emojis = emojis;
-    this._element = null;
   }
 
   getTemplate() {
     return createPopupTemplate(this._film, this._comments, this._emojis);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

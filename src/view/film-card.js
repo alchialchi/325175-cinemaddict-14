@@ -1,13 +1,18 @@
 import dayjs from 'dayjs';
 import {
   getFormattedDuration,
-  addPluralEnding,
-  createElement
-} from '../util.js';
+  addPluralEnding
+} from '../utils/common';
+
+import AbstractView from './abstract.js';
 
 const SHORT_DESCRIPTION_LENGTH = 140;
 
 const createFilmCardTemplate = (film) => {
+  if (!film) {
+    return;
+  }
+
   const {
     comments: commentsIds,
     info: {
@@ -51,25 +56,13 @@ const createFilmCardTemplate = (film) => {
 `;
 };
 
-export default class FilmCard {
+export default class FilmCard extends AbstractView {
   constructor(film) {
+    super();
     this._film = film;
-    this._element = null;
   }
 
   getTemplate() {
     return createFilmCardTemplate(this._film);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

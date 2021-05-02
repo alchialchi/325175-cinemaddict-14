@@ -1,5 +1,6 @@
 
-import { convertPlainTextToSnakeCase, createElement } from '../util.js';
+import { convertPlainTextToSnakeCase } from '../utils/common';
+import AbstractView from './abstract.js';
 
 const createMenuTemplate = (filters) => {
   const isDefaultFilter = (filterName) => filterName.toLowerCase() === 'all';
@@ -22,25 +23,13 @@ const createMenuTemplate = (filters) => {
 `;
 };
 
-export default class SiteMenu {
+export default class SiteMenu extends AbstractView {
   constructor(filters) {
+    super();
     this._filters = filters;
-    this._element = null;
   }
 
   getTemplate() {
     return createMenuTemplate(this._filters);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

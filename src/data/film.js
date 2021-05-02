@@ -9,7 +9,7 @@ import {
   generateRandomText,
   DAYS_IN_ONE_YEAR,
   createUniqueIdGenerator
-} from '../util.js';
+} from '../utils/common';
 
 const MAX_COMMENTS_PER_FILM = 15;
 

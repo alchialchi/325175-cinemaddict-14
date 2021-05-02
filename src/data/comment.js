@@ -3,7 +3,7 @@ import {
   generateRandomText,
   getRandomDateFromPast,
   createUniqueIdGenerator
-} from '../util.js';
+} from '../utils/common';
 
 const MAX_COMMENT_DAYS_AGO = 300;
 
