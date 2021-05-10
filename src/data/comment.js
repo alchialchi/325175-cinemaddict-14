@@ -44,13 +44,3 @@ export const generateComment = () => {
 };
 
 export const comments = new Array(COMMENTS_COUNT).fill().map(() => generateComment());
-
-// const generateComments = () => {
-//   const comments = [];
-//   for (let i = 0; i < COMMENTS_COUNTER; i++) {
-//     comments.push(generateComment(i));
-//   }
-//   return comments;
-// };
-
-// export const allComments = generateComments();
