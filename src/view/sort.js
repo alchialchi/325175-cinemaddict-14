@@ -29,7 +29,13 @@ export default class SortFilter extends AbstractView {
     evt.preventDefault();
     this._callback.sortTypeChange(evt.target.dataset.sortType);
     this._currentSortType = evt.target.dataset.sortType;
-    this.getElement().querySelectorAll('.sort__button').forEach((item) => {item.classList.contains('sort__button--active') ? item.classList.remove('sort__button--active') : '';});
+    this.getElement().querySelectorAll('.sort__button').forEach((item) => {
+      if (item.classList.contains('sort__button--active')) {
+        item.classList.remove('sort__button--active');
+      } else {
+        return '';
+      }
+    });
     evt.target.classList.add('sort__button--active');
   }
 
