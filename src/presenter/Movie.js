@@ -127,13 +127,13 @@ export default class Movie {
   _hidePopup() {
     remove(this._popupComponent);
     document.body.classList.remove('hide-overflow');
+    document.addEventListener('keydown', this._onEscKeyDown);
   }
 
   _onEscKeyDown(evt) {
     if (evt.key === 'Escape' || evt.key === 'Esc') {
       evt.preventDefault();
       this._hidePopup();
-      document.removeEventListener('keydown', this._onEscKeyDown);
     }
   }
 }
