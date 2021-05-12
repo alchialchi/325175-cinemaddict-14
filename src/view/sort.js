@@ -32,8 +32,6 @@ export default class SortFilter extends AbstractView {
     this.getElement().querySelectorAll('.sort__button').forEach((item) => {
       if (item.classList.contains('sort__button--active')) {
         item.classList.remove('sort__button--active');
-      } else {
-        return '';
       }
     });
     evt.target.classList.add('sort__button--active');

@@ -127,7 +127,7 @@ export default class Movie {
   _hidePopup() {
     remove(this._popupComponent);
     document.body.classList.remove('hide-overflow');
-    document.addEventListener('keydown', this._onEscKeyDown);
+    document.removeEventListener('keydown', this._onEscKeyDown);
   }
 
   _onEscKeyDown(evt) {
