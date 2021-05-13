@@ -6,6 +6,7 @@ import {
 } from '../utils/common';
 
 const MAX_COMMENT_DAYS_AGO = 300;
+const COMMENTS_COUNT = 50;
 
 const COMMENTS_AUTHORS = [
   'Leeroy Jenkins',
@@ -41,3 +42,5 @@ export const generateComment = () => {
     date: getRandomDateFromPast(MAX_COMMENT_DAYS_AGO),
   };
 };
+
+export const comments = new Array(COMMENTS_COUNT).fill().map(() => generateComment());
