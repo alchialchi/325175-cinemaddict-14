@@ -65,6 +65,7 @@ export default class Movie {
     this._popupComponent.setWatchedClickHandler(this._handleWatchedClick);
     this._popupComponent.setFavoriteClickHandler(this._handleFavoriteClick);
     this._popupComponent.setCloseButtonClickHandler(this._hidePopup);
+    this._popupComponnet.setEmojiClickHandler();
   }
 
   _handleWatchListClick() {
