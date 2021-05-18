@@ -9,3 +9,4 @@ export * from './footer';
 export * from './sort';
 export * from './stats';
 export * from './film-list-most-commented';
+export * from './films';

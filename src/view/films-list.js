@@ -1,17 +1,17 @@
 import AbstractView from './abstract.js';
 
 const createFilmsListTemplate = () => {
-  return `<section class="films">
+  return `
     <section class="films-list">
       <h2 class="films-list__title visually-hidden">All movies. Upcoming</h2>
       <div class="films-list__container">
       </div>
     </section>
-  </section>
+
   `;
 };
 
-export default class Films extends AbstractView {
+export default class FilmsList extends AbstractView {
   getTemplate() {
     return createFilmsListTemplate();
   }

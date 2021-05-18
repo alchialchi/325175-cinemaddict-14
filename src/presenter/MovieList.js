@@ -1,7 +1,8 @@
 import { render, remove, RenderPosition } from '../utils/render';
 import { updateItem } from '../utils/common';
 import SiteMenuView from '../view/menu';
-import FilmsView from '../view/films-list';
+import FilmsListView from '../view/films-list';
+import FilmsView from '../view/films';
 import SortFilterView from '../view/sort';
 import MostCommentedFilmsView from '../view/film-list-most-commented';
 import TopRatedFilmsView from '../view/films-list-extra';
@@ -28,6 +29,7 @@ export default class MovieList {
 
     this._siteMenuComponent = new SiteMenuView(this._movieFilters);
     this._filmsComponent = new FilmsView();
+    this._filmsListComponent = new FilmsListView();
     this._sortComponent = new SortFilterView();
     this._topRatedFilmListComponent = new TopRatedFilmsView();
     this._mostCommentedFilmListComponent = new MostCommentedFilmsView();
@@ -43,6 +45,7 @@ export default class MovieList {
     this._films = films.slice();
     this._sourcedFilms = films.slice();
     render(this._mainContainer, this._filmsComponent, RenderPosition.BEFOREEND);
+    render(this._filmsComponent, this._filmsListComponent, RenderPosition.BEFOREEND);
 
     this._renderMovieList();
   }
@@ -86,15 +89,15 @@ export default class MovieList {
   }
 
   _renderSort() {
-    render(this._mainContainer, this._sortComponent, RenderPosition.AFTERBEGIN);
+    render(this._filmsComponent, this._sortComponent, RenderPosition.AFTERBEGIN);
     this._sortComponent.setSortTypeChangeHandler(this._handleSortTypeChange);
   }
 
-  _renderFilm(film, container = this._filmsComponent) {
+  _renderFilm(film, container = this._filmsListComponent) {
     const moviePresenter = new MoviePresenter(container, this._handleFilmChange);
     moviePresenter.init(film);
 
-    if (container === this._filmsComponent) {
+    if (container === this._filmsListComponent) {
       this._moviePresenter[film.id] = moviePresenter;
     }
 
@@ -130,7 +133,7 @@ export default class MovieList {
   }
 
   _renderShowMoreButton() {
-    render(this._filmsComponent, this._showMoreButtonComponent, RenderPosition.BEFOREEND);
+    render(this._filmsListComponent, this._showMoreButtonComponent, RenderPosition.BEFOREEND);
     this._showMoreButtonComponent.setClickHandler(this._handleShowMoreButtonClick);
   }
 
