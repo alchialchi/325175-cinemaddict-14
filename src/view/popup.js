@@ -5,6 +5,7 @@ import SmartView from './abstract.js';
 
 import { getFormattedDuration, addPluralEnding } from '../utils/common';
 import { createElement, render, RenderPosition } from '../utils/render';
+import { EMOJIS } from '../data/comment';
 
 dayjs.extend(relativeTime);
 
@@ -46,7 +47,7 @@ const createCommentTemplate = (id, comments) => {
     </li>`;
 };
 
-const createPopupTemplate = (film, comments, emojis) => {
+const createPopupTemplate = (film, comments) => {
   const {
     comments: commentsIds,
     info: {
@@ -165,7 +166,7 @@ const createPopupTemplate = (film, comments, emojis) => {
           </label>
 
           <div class="film-details__emoji-list">
-            ${emojis.map((emoji) => createEmojiTemplate(emoji)).join(' ')}
+            ${EMOJIS.map((emoji) => createEmojiTemplate(emoji)).join(' ')}
           </div>
         </div>
       </section>
@@ -175,11 +176,10 @@ const createPopupTemplate = (film, comments, emojis) => {
 };
 
 export default class Popup extends SmartView {
-  constructor(film, comments, emojis) {
+  constructor(film, comments) {
     super();
     this._film = film;
     this._comments = comments;
-    this._emojis = emojis;
     this._closeButtonClickHandler = this._closeButtonClickHandler.bind(this);
     this._watchListClickHandler = this._watchListClickHandler.bind(this);
     this._watchedClickHandler = this._watchedClickHandler.bind(this);
@@ -188,7 +188,7 @@ export default class Popup extends SmartView {
   }
 
   getTemplate() {
-    return createPopupTemplate(this._film, this._comments, this._emojis);
+    return createPopupTemplate(this._film, this._comments);
   }
 
   _emojiClickHandler(evt) {

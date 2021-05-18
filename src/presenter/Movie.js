@@ -1,7 +1,7 @@
 
 import FilmCardView from '../view/film-card';
 import PopupView from '../view/popup';
-import { comments, EMOJIS } from '../data';
+import { comments } from '../data';
 import { render, remove, replace, RenderPosition } from '../utils/render';
 
 export default class Movie {
@@ -9,7 +9,6 @@ export default class Movie {
     this._filmListComponent = filmListComponent;
     this._filmListContainer = filmListComponent.getElement().querySelector('.films-list__container');
     this._comments = comments;
-    this._emojis = EMOJIS;
     this._changeData = changeData;
 
     this._filmCardComponent = null;
@@ -31,7 +30,7 @@ export default class Movie {
     const prevPopupComponent = this._popupComponent;
 
     this._filmCardComponent = new FilmCardView(film);
-    this._popupComponent = new PopupView(film, this._comments, this._emojis);
+    this._popupComponent = new PopupView(film, this._comments);
 
     this._setFilmCardClickHandlers();
     this._setPopupClickHandlers();
