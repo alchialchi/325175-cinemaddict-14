@@ -1,14 +1,17 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+
+import SmartView from './abstract.js';
+
 import { getFormattedDuration, addPluralEnding } from '../utils/common';
-import AbstractView from './abstract.js';
+import { createElement, render, RenderPosition } from '../utils/render';
 
 dayjs.extend(relativeTime);
 
-const createEmojiTemplate = (emojiName) => {
-  return `<input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-${emojiName}" value="${emojiName}">
-    <label class="film-details__emoji-label" for="emoji-${emojiName}">
-      <img src="./images/emoji/${emojiName}.png" width="30" height="30" alt="emoji">
+const createEmojiTemplate = (emoji) => {
+  return `<input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-${emoji}" value="${emoji}">
+    <label class="film-details__emoji-label" for="emoji-${emoji}">
+      <img src="./images/emoji/${emoji}.png" width="30" height="30" alt="emoji">
     </label>`;
 };
 
@@ -162,7 +165,7 @@ const createPopupTemplate = (film, comments, emojis) => {
           </label>
 
           <div class="film-details__emoji-list">
-            ${emojis.map((emojiName) => createEmojiTemplate(emojiName)).join(' ')}
+            ${emojis.map((emoji) => createEmojiTemplate(emoji)).join(' ')}
           </div>
         </div>
       </section>
@@ -171,7 +174,7 @@ const createPopupTemplate = (film, comments, emojis) => {
 </section>`;
 };
 
-export default class Popup extends AbstractView {
+export default class Popup extends SmartView {
   constructor(film, comments, emojis) {
     super();
     this._film = film;
@@ -181,10 +184,36 @@ export default class Popup extends AbstractView {
     this._watchListClickHandler = this._watchListClickHandler.bind(this);
     this._watchedClickHandler = this._watchedClickHandler.bind(this);
     this._favoriteClickHandler = this._favoriteClickHandler.bind(this);
+    this._emojiClickHandler = this._emojiClickHandler.bind(this);
   }
 
   getTemplate() {
     return createPopupTemplate(this._film, this._comments, this._emojis);
+  }
+
+  _emojiClickHandler(evt) {
+    evt.preventDefault();
+    const container = this.getElement().querySelector('.film-details__add-emoji-label');
+
+    if (container.querySelector('img')) {
+      const emojiImage = this.getElement().querySelector('.film-details__add-emoji-label img');
+      emojiImage.src = `images/emoji/${evt.target.value}.png`;
+      emojiImage.alt = `emoji-${evt.target.value}`;
+    } else {
+      const element = createElement(`<img src="images/emoji/${evt.target.value}.png" width="55" height="55" alt="emoji-${evt.target.value}">`);
+      render(container, element, RenderPosition.BEFOREEND);
+    }
+  }
+
+  setEmojiClickHandler() {
+    this.getElement().querySelector('.film-details__emoji-list').addEventListener('input', this._emojiClickHandler);
+  }
+
+  restoreHandlers() {
+    this.setCloseButtonClickHandler(this._callback.closeButtonClick);
+    this.setWatchListClickHandler(this._callback.watchListClick);
+    this.setWatchedClickHandler(this._callback.watchedClick);
+    this.setFavoriteClickHandler(this._callback.favoriteClick);
   }
 
   _closeButtonClickHandler(evt) {
