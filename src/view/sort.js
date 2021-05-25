@@ -1,24 +1,25 @@
 import AbstractView from './abstract.js';
-import { SortType } from '../const';
+import {SortType} from '../const.js';
 
-const createSortFilterTemplate = () => {
+const createSortingTemplate = (sortType) => {
+  const activeClass = 'sort__button--active';
+
   return `<ul class="sort">
-    <li><a href="#" data-sort-type="${SortType.DEFAULT}" class="sort__button sort__button--default sort__button--active">Sort by default</a></li>
-    <li><a href="#" data-sort-type="${SortType.DATE}" class="sort__button sort__button--date" >Sort by date</a></li>
-    <li><a href="#" data-sort-type="${SortType.RATING}" class="sort__button sort__button--rating">Sort by rating</a></li>
+    <li><a href="#" class="sort__button ${sortType === SortType.DEFAULT ? activeClass : ''}" data-sort-type="${SortType.DEFAULT}">Sort by default</a></li>
+    <li><a href="#" class="sort__button ${sortType === SortType.DATE ? activeClass : ''}" data-sort-type="${SortType.DATE}">Sort by date</a></li>
+    <li><a href="#" class="sort__button ${sortType === SortType.RATING ? activeClass : ''}" data-sort-type="${SortType.RATING}">Sort by rating</a></li>
   </ul>`;
 };
 
-export default class SortFilter extends AbstractView {
-  constructor() {
+export default class Sorting extends AbstractView {
+  constructor(sortType) {
     super();
-
+    this._sortType = sortType;
     this._sortTypeChangeHandler = this._sortTypeChangeHandler.bind(this);
-    this._currentSortType = SortType.DEFAULT;
   }
 
   getTemplate() {
-    return createSortFilterTemplate();
+    return createSortingTemplate(this._sortType);
   }
 
   _sortTypeChangeHandler(evt) {
@@ -28,13 +29,6 @@ export default class SortFilter extends AbstractView {
 
     evt.preventDefault();
     this._callback.sortTypeChange(evt.target.dataset.sortType);
-    this._currentSortType = evt.target.dataset.sortType;
-    this.getElement().querySelectorAll('.sort__button').forEach((item) => {
-      if (item.classList.contains('sort__button--active')) {
-        item.classList.remove('sort__button--active');
-      }
-    });
-    evt.target.classList.add('sort__button--active');
   }
 
   setSortTypeChangeHandler(callback) {

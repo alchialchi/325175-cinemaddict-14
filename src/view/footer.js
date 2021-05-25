@@ -1,19 +1,18 @@
-import { addPluralEnding } from '../utils/common';
 import AbstractView from './abstract.js';
 
-const createFooterTemplate = (films) => {
+const createFooterStatisticTemplate = (number) => {
   return `<section class="footer__statistics">
-    <p>${films.length} movie${addPluralEnding(films)} inside</p>
+    <p>${number} movies inside</p>
   </section>`;
 };
 
-export default class Footer extends AbstractView {
-  constructor(films) {
+export default class FooterStatistic extends AbstractView {
+  constructor(statisticCount) {
     super();
-    this._films = films;
+    this._statisticCount = statisticCount;
   }
 
   getTemplate() {
-    return createFooterTemplate(this._films);
+    return createFooterStatisticTemplate(this._statisticCount);
   }
 }
